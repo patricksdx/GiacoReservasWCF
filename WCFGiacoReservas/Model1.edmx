@@ -1,0 +1,2145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="GiacoReservaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Tb_Artista">
+          <Key>
+            <PropertyRef Name="artista_id" />
+          </Key>
+          <Property Name="artista_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_artista" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="costo_hora" Type="money" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Foto" Type="varbinary(max)" />
+          <Property Name="IdGenero" Type="int" />
+          <Property Name="Estado" Type="int" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="CreadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaActualizacion" Type="datetime" />
+          <Property Name="ActualizadoPor" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tb_Cliente">
+          <Key>
+            <PropertyRef Name="cliente_id" />
+          </Key>
+          <Property Name="cliente_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="correo_electronico" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Dni" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Id_Ubigeo" Type="nchar" MaxLength="6" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="CreadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="ActualizadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="RazonSocial" Type="varchar" MaxLength="255" />
+          <Property Name="RUC" Type="varchar" MaxLength="11" />
+          <Property Name="estado" Type="int" />
+          <Property Name="FechaActualizacion" Type="datetime" Nullable="false" />
+          <Property Name="esEmpresa" Type="int" />
+        </EntityType>
+        <EntityType Name="Tb_Evento">
+          <Key>
+            <PropertyRef Name="evento_id" />
+          </Key>
+          <Property Name="evento_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fecha_evento" Type="date" Nullable="false" />
+          <Property Name="hora_inicio" Type="time" Precision="7" Nullable="false" />
+          <Property Name="hora_finalizacion" Type="time" Precision="7" Nullable="false" />
+          <Property Name="sala_id" Type="int" Nullable="false" />
+          <Property Name="cliente_id" Type="int" />
+          <Property Name="tipo_id" Type="int" />
+          <Property Name="fecha_eliminacion" Type="datetime" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="CreadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaActualizacion" Type="datetime" />
+          <Property Name="ActualizadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="int" />
+          <Property Name="nombre_evento" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'GiacoReserva.dbo.Tb_EventoArtista' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Tb_EventoArtista">
+          <Key>
+            <PropertyRef Name="evento_id" />
+            <PropertyRef Name="artista_id" />
+            <PropertyRef Name="duracion_show" />
+          </Key>
+          <Property Name="evento_id" Type="int" Nullable="false" />
+          <Property Name="artista_id" Type="int" Nullable="false" />
+          <Property Name="duracion_show" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_EventoPersonal">
+          <Key>
+            <PropertyRef Name="evento_id" />
+            <PropertyRef Name="personal_id" />
+          </Key>
+          <Property Name="evento_id" Type="int" Nullable="false" />
+          <Property Name="personal_id" Type="int" Nullable="false" />
+          <Property Name="costo_personal" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_Genero">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="CreadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaActualizacion" Type="datetime" />
+          <Property Name="ActualizadoPor" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Tb_Invitados">
+          <Key>
+            <PropertyRef Name="Invitado_id" />
+          </Key>
+          <Property Name="Invitado_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dni" Type="char" MaxLength="8" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_ListaInvitados">
+          <Key>
+            <PropertyRef Name="id_lista" />
+          </Key>
+          <Property Name="id_lista" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Invitado_id" Type="int" Nullable="false" />
+          <Property Name="evento_id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_Personal">
+          <Key>
+            <PropertyRef Name="personal_id" />
+          </Key>
+          <Property Name="personal_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="dni" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="costo_hora" Type="money" Nullable="false" />
+          <Property Name="Foto" Type="image" />
+          <Property Name="Telefono" Type="varchar" MaxLength="50" />
+          <Property Name="Correo" Type="varchar" MaxLength="255" />
+          <Property Name="Tipo" Type="int" />
+          <Property Name="FechaCreacion" Type="datetime" />
+          <Property Name="CreadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="FechaActualizacion" Type="datetime" />
+          <Property Name="ActualizadoPor" Type="varchar" MaxLength="100" />
+          <Property Name="estado" Type="int" />
+        </EntityType>
+        <EntityType Name="Tb_Sala">
+          <Key>
+            <PropertyRef Name="sala_id" />
+          </Key>
+          <Property Name="sala_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre_sala" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="capacidad" Type="int" Nullable="false" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="costo_sala" Type="money" Nullable="false" />
+          <Property Name="disponibilidad" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_TipoEventos">
+          <Key>
+            <PropertyRef Name="tipo_id" />
+          </Key>
+          <Property Name="tipo_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="tipo_evento" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tb_Ubigeo">
+          <Key>
+            <PropertyRef Name="Id_Ubigeo" />
+          </Key>
+          <Property Name="Id_Ubigeo" Type="nchar" MaxLength="6" Nullable="false" />
+          <Property Name="IdDepa" Type="nvarchar" MaxLength="255" />
+          <Property Name="IdProv" Type="nvarchar" MaxLength="255" />
+          <Property Name="IdDist" Type="nvarchar" MaxLength="255" />
+          <Property Name="Departamento" Type="nvarchar" MaxLength="255" />
+          <Property Name="Provincia" Type="nvarchar" MaxLength="255" />
+          <Property Name="Distrito" Type="nvarchar" MaxLength="255" />
+          <Property Name="Cod_Ven" Type="nchar" MaxLength="3" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6013: La tabla o vista 'GiacoReserva.dbo.Tb_Usuario' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        <EntityType Name="Tb_Usuario">
+          <Property Name="Login_Usuario" Type="varchar" MaxLength="60" />
+          <Property Name="Pass_Usuario" Type="varchar" MaxLength="60" />
+          <Property Name="Tipo_Usuario" Type="varchar" MaxLength="100" />
+        </EntityType>-->
+        <Association Name="FK__Tb_Evento__artis__75A278F5">
+          <End Role="Tb_Artista" Type="Self.Tb_Artista" Multiplicity="1" />
+          <End Role="Tb_EventoArtista" Type="Self.Tb_EventoArtista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Artista">
+              <PropertyRef Name="artista_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoArtista">
+              <PropertyRef Name="artista_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__event__76969D2E">
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="1" />
+          <End Role="Tb_EventoArtista" Type="Self.Tb_EventoArtista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Evento">
+              <PropertyRef Name="evento_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoArtista">
+              <PropertyRef Name="evento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__event__778AC167">
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="1" />
+          <End Role="Tb_EventoPersonal" Type="Self.Tb_EventoPersonal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Evento">
+              <PropertyRef Name="evento_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoPersonal">
+              <PropertyRef Name="evento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__perso__787EE5A0">
+          <End Role="Tb_Personal" Type="Self.Tb_Personal" Multiplicity="1" />
+          <End Role="Tb_EventoPersonal" Type="Self.Tb_EventoPersonal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Personal">
+              <PropertyRef Name="personal_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoPersonal">
+              <PropertyRef Name="personal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__sala___71D1E811">
+          <End Role="Tb_Sala" Type="Self.Tb_Sala" Multiplicity="1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Sala">
+              <PropertyRef Name="sala_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="sala_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_ListaI__event__797309D9">
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="1" />
+          <End Role="Tb_ListaInvitados" Type="Self.Tb_ListaInvitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Evento">
+              <PropertyRef Name="evento_id" />
+            </Principal>
+            <Dependent Role="Tb_ListaInvitados">
+              <PropertyRef Name="evento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_ListaI__Invit__7A672E12">
+          <End Role="Tb_Invitados" Type="Self.Tb_Invitados" Multiplicity="1" />
+          <End Role="Tb_ListaInvitados" Type="Self.Tb_ListaInvitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Invitados">
+              <PropertyRef Name="Invitado_id" />
+            </Principal>
+            <Dependent Role="Tb_ListaInvitados">
+              <PropertyRef Name="Invitado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cliente_id">
+          <End Role="Tb_Cliente" Type="Self.Tb_Cliente" Multiplicity="0..1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Cliente">
+              <PropertyRef Name="cliente_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Genero">
+          <End Role="Tb_Genero" Type="Self.Tb_Genero" Multiplicity="0..1" />
+          <End Role="Tb_Artista" Type="Self.Tb_Artista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Genero">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Tb_Artista">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tb_Evento_tipo_id">
+          <End Role="Tb_TipoEventos" Type="Self.Tb_TipoEventos" Multiplicity="0..1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_TipoEventos">
+              <PropertyRef Name="tipo_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_id">
+          <End Role="Tb_TipoEventos" Type="Self.Tb_TipoEventos" Multiplicity="0..1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_TipoEventos">
+              <PropertyRef Name="tipo_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ubigeo">
+          <End Role="Tb_Ubigeo" Type="Self.Tb_Ubigeo" Multiplicity="0..1" />
+          <End Role="Tb_Cliente" Type="Self.Tb_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Ubigeo">
+              <PropertyRef Name="Id_Ubigeo" />
+            </Principal>
+            <Dependent Role="Tb_Cliente">
+              <PropertyRef Name="Id_Ubigeo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="ObtenerDetallesPersonalEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="idEvento" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spu_ModificarArtista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="artista_id" Type="int" Mode="In" />
+          <Parameter Name="nombre_artista" Type="varchar" Mode="In" />
+          <Parameter Name="genero_musical" Type="varchar" Mode="In" />
+          <Parameter Name="costo_hora" Type="money" Mode="In" />
+        </Function>
+        <Function Name="ufn_CalcularIngresosEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="decimal">
+          <Parameter Name="p_evento_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ufn_ContarInvitadosPorCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="cliente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="ufn_obtenerArtistasPorCosto" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="costo" Type="money" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="artista_id" Type="int" Nullable="false" />
+                <Property Name="nombre_artista" Type="varchar" MaxLength="50" Nullable="false" />
+                <Property Name="costo_hora" Type="money" Nullable="false" />
+                <Property Name="Email" Type="varchar" MaxLength="255" />
+                <Property Name="Telefono" Type="varchar" MaxLength="50" />
+                <Property Name="Foto" Type="varbinary(max)" />
+                <Property Name="IdGenero" Type="int" />
+                <Property Name="Estado" Type="int" />
+                <Property Name="FechaCreacion" Type="datetime" />
+                <Property Name="CreadoPor" Type="varchar" MaxLength="100" />
+                <Property Name="FechaActualizacion" Type="datetime" />
+                <Property Name="ActualizadoPor" Type="varchar" MaxLength="100" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="unf_BuscarDni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dni" Type="char" Mode="In" />
+          <ReturnType>
+            <CollectionType>
+              <RowType>
+                <Property Name="Invitado_id" Type="int" Nullable="false" />
+                <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+                <Property Name="apellido" Type="varchar" MaxLength="50" Nullable="false" />
+                <Property Name="dni" Type="char" MaxLength="8" Nullable="false" />
+              </RowType>
+            </CollectionType>
+          </ReturnType>
+        </Function>
+        <Function Name="unf_ContarPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int">
+          <Parameter Name="tipo_personal" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizaEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="evento_id" Type="int" Mode="In" />
+          <Parameter Name="sala_id" Type="int" Mode="In" />
+          <Parameter Name="tipo_evento" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_evento" Type="date" Mode="In" />
+          <Parameter Name="hora_inicio" Type="time" Mode="In" />
+          <Parameter Name="hora_finalizacion" Type="time" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cliente_id" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="correo_electronico" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="Dni" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="EsEmpresa" Type="int" Mode="In" />
+          <Parameter Name="RazonSocial" Type="varchar" Mode="In" />
+          <Parameter Name="RUC" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+          <Parameter Name="Id_Ubigeo" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizarDuracionShow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_evento_id" Type="int" Mode="In" />
+          <Parameter Name="p_artista_id" Type="int" Mode="In" />
+          <Parameter Name="p_nueva_duracion" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizarEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="evento_id" Type="int" Mode="In" />
+          <Parameter Name="nombre_evento" Type="varchar" Mode="In" />
+          <Parameter Name="sala_id" Type="int" Mode="In" />
+          <Parameter Name="tipo_id" Type="int" Mode="In" />
+          <Parameter Name="fecha_evento" Type="date" Mode="In" />
+          <Parameter Name="hora_inicio" Type="time" Mode="In" />
+          <Parameter Name="hora_finalizacion" Type="time" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+          <Parameter Name="actualizado_por" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizarEventoPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_evento_id" Type="int" Mode="In" />
+          <Parameter Name="p_personal_id" Type="int" Mode="In" />
+          <Parameter Name="p_costo_personal" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizarInformacionCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cliente_id" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="correo_electronico" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_nacimiento" Type="date" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="Dni" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizarPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="personal_id" Type="int" Mode="In" />
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="dni" Type="char" Mode="In" />
+          <Parameter Name="costo_hora" Type="money" Mode="In" />
+          <Parameter Name="Foto" Type="image" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo" Type="int" Mode="In" />
+          <Parameter Name="ActualizadoPor" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_ActualizaSala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sala_id" Type="int" Mode="In" />
+          <Parameter Name="capacidad" Type="int" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="costo_sala" Type="money" Mode="In" />
+          <Parameter Name="disponibilidad" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="usp_BuscarPersonalDni" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dni" Type="char" Mode="In" />
+        </Function>
+        <Function Name="usp_ConsultarArtista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_artista" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_ConsultarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cliente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Usp_ConsultarDatosCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cliente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Usp_ConsultarDatosPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="personal_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_ConsultarEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ecod" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_ConsultarEventoYTipo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="Usp_ConsultarInvitadosPorEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="evento_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_ConsultarPersonalPorEventoo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="EventoID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_ConsultarUsuario" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Login_Usuario" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_EliminarArtista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_artista" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_EliminarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cliente_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_EliminarEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="evento_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_EliminarEventoPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="p_evento_id" Type="int" Mode="In" />
+          <Parameter Name="p_personal_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_eliminarInvitadoPorID" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Invitado_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_EliminarPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="personal_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_EliminarSala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="sala_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_InsertarCliente" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="correo_electronico" Type="varchar" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="Dni" Type="varchar" Mode="In" />
+          <Parameter Name="telefono" Type="varchar" Mode="In" />
+          <Parameter Name="CreadoPor" Type="varchar" Mode="In" />
+          <Parameter Name="EsEmpresa" Type="int" Mode="In" />
+          <Parameter Name="RazonSocial" Type="varchar" Mode="In" />
+          <Parameter Name="RUC" Type="varchar" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+          <Parameter Name="Id_Ubigeo" Type="nchar" Mode="In" />
+        </Function>
+        <Function Name="usp_InsertarEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_evento" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_evento" Type="date" Mode="In" />
+          <Parameter Name="hora_inicio" Type="time" Mode="In" />
+          <Parameter Name="hora_finalizacion" Type="time" Mode="In" />
+          <Parameter Name="sala_id" Type="int" Mode="In" />
+          <Parameter Name="tipo_id" Type="int" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+          <Parameter Name="creado_por" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="usp_InsertarEventoPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="tipo_personal" Type="varchar" Mode="In" />
+          <Parameter Name="dni" Type="char" Mode="In" />
+          <Parameter Name="costo_hora" Type="money" Mode="In" />
+        </Function>
+        <Function Name="usp_InsertarInvitado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="dni" Type="char" Mode="In" />
+        </Function>
+        <Function Name="usp_InsertarPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre" Type="varchar" Mode="In" />
+          <Parameter Name="apellido" Type="varchar" Mode="In" />
+          <Parameter Name="dni" Type="char" Mode="In" />
+          <Parameter Name="costo_hora" Type="money" Mode="In" />
+          <Parameter Name="Foto" Type="image" Mode="In" />
+          <Parameter Name="Telefono" Type="varchar" Mode="In" />
+          <Parameter Name="Correo" Type="varchar" Mode="In" />
+          <Parameter Name="Tipo" Type="int" Mode="In" />
+          <Parameter Name="CreadoPor" Type="nvarchar" Mode="In" />
+          <Parameter Name="estado" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_InsertarSala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="capacidad" Type="int" Mode="In" />
+          <Parameter Name="direccion" Type="varchar" Mode="In" />
+          <Parameter Name="costo_sala" Type="money" Mode="In" />
+        </Function>
+        <Function Name="usp_listarArtista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_ListarClientes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_ListarEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_ListarPersonal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_ListarSala" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_ListarTipoDeEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_NumeroEventosPorMes" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_RegistrarArtista" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="nombre_artista" Type="varchar" Mode="In" />
+          <Parameter Name="genero_musical" Type="varchar" Mode="In" />
+          <Parameter Name="costo_hora" Type="money" Mode="In" />
+        </Function>
+        <Function Name="usp_RegistrarEvento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="tipo_evento" Type="varchar" Mode="In" />
+          <Parameter Name="fecha_evento" Type="date" Mode="In" />
+          <Parameter Name="hora_inicio" Type="time" Mode="In" />
+          <Parameter Name="hora_finalizacion" Type="time" Mode="In" />
+          <Parameter Name="sala_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_TiposDeEventosDelAno" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_Ubigeo_Departamentos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_Ubigeo_DistritosProvinciaDepartamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDepartamento" Type="char" Mode="In" />
+          <Parameter Name="IdProvincia" Type="char" Mode="In" />
+        </Function>
+        <Function Name="usp_Ubigeo_ProvinciasDepartamento" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="IdDepartamento" Type="char" Mode="In" />
+        </Function>
+        <EntityContainer Name="GiacoReservaModelStoreContainer">
+          <EntitySet Name="Tb_Artista" EntityType="Self.Tb_Artista" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Cliente" EntityType="Self.Tb_Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Evento" EntityType="Self.Tb_Evento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_EventoPersonal" EntityType="Self.Tb_EventoPersonal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Genero" EntityType="Self.Tb_Genero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Invitados" EntityType="Self.Tb_Invitados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_ListaInvitados" EntityType="Self.Tb_ListaInvitados" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Personal" EntityType="Self.Tb_Personal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Sala" EntityType="Self.Tb_Sala" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_TipoEventos" EntityType="Self.Tb_TipoEventos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_Ubigeo" EntityType="Self.Tb_Ubigeo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tb_EventoArtista" EntityType="Self.Tb_EventoArtista" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Tb_EventoArtista].[evento_id] AS [evento_id], 
+    [Tb_EventoArtista].[artista_id] AS [artista_id], 
+    [Tb_EventoArtista].[duracion_show] AS [duracion_show]
+    FROM [dbo].[Tb_EventoArtista] AS [Tb_EventoArtista]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__Tb_Evento__artis__75A278F5" Association="Self.FK__Tb_Evento__artis__75A278F5">
+            <End Role="Tb_Artista" EntitySet="Tb_Artista" />
+            <End Role="Tb_EventoArtista" EntitySet="Tb_EventoArtista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__event__76969D2E" Association="Self.FK__Tb_Evento__event__76969D2E">
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+            <End Role="Tb_EventoArtista" EntitySet="Tb_EventoArtista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__event__778AC167" Association="Self.FK__Tb_Evento__event__778AC167">
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+            <End Role="Tb_EventoPersonal" EntitySet="Tb_EventoPersonal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__perso__787EE5A0" Association="Self.FK__Tb_Evento__perso__787EE5A0">
+            <End Role="Tb_Personal" EntitySet="Tb_Personal" />
+            <End Role="Tb_EventoPersonal" EntitySet="Tb_EventoPersonal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__sala___71D1E811" Association="Self.FK__Tb_Evento__sala___71D1E811">
+            <End Role="Tb_Sala" EntitySet="Tb_Sala" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_ListaI__event__797309D9" Association="Self.FK__Tb_ListaI__event__797309D9">
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+            <End Role="Tb_ListaInvitados" EntitySet="Tb_ListaInvitados" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_ListaI__Invit__7A672E12" Association="Self.FK__Tb_ListaI__Invit__7A672E12">
+            <End Role="Tb_Invitados" EntitySet="Tb_Invitados" />
+            <End Role="Tb_ListaInvitados" EntitySet="Tb_ListaInvitados" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cliente_id" Association="Self.fk_cliente_id">
+            <End Role="Tb_Cliente" EntitySet="Tb_Cliente" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Genero" Association="Self.FK_Genero">
+            <End Role="Tb_Genero" EntitySet="Tb_Genero" />
+            <End Role="Tb_Artista" EntitySet="Tb_Artista" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tb_Evento_tipo_id" Association="Self.FK_Tb_Evento_tipo_id">
+            <End Role="Tb_TipoEventos" EntitySet="Tb_TipoEventos" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_id" Association="Self.fk_tipo_id">
+            <End Role="Tb_TipoEventos" EntitySet="Tb_TipoEventos" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubigeo" Association="Self.FK_Ubigeo">
+            <End Role="Tb_Ubigeo" EntitySet="Tb_Ubigeo" />
+            <End Role="Tb_Cliente" EntitySet="Tb_Cliente" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="GiacoReservaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <ComplexType Name="ufn_obtenerArtistasPorCosto_Result">
+          <Property Name="artista_id" Type="Int32" Nullable="false" />
+          <Property Name="nombre_artista" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="costo_hora" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IdGenero" Type="Int32" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="FechaCreacion" Type="DateTime" />
+          <Property Name="CreadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizacion" Type="DateTime" />
+          <Property Name="ActualizadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </ComplexType>
+        <ComplexType Name="unf_BuscarDni_Result">
+          <Property Name="Invitado_id" Type="Int32" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="Tb_Artista">
+          <Key>
+            <PropertyRef Name="artista_id" />
+          </Key>
+          <Property Name="artista_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_artista" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="costo_hora" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="IdGenero" Type="Int32" />
+          <Property Name="Estado" Type="Int32" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="CreadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="ActualizadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_EventoArtista" Relationship="Self.FK__Tb_Evento__artis__75A278F5" FromRole="Tb_Artista" ToRole="Tb_EventoArtista" />
+          <NavigationProperty Name="Tb_Genero" Relationship="Self.FK_Genero" FromRole="Tb_Artista" ToRole="Tb_Genero" />
+        </EntityType>
+        <EntityType Name="Tb_Cliente">
+          <Key>
+            <PropertyRef Name="cliente_id" />
+          </Key>
+          <Property Name="cliente_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correo_electronico" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Dni" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Id_Ubigeo" Type="String" MaxLength="6" FixedLength="true" Unicode="true" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="CreadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ActualizadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="RazonSocial" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RUC" Type="String" MaxLength="11" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="FechaActualizacion" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="esEmpresa" Type="Int32" />
+          <NavigationProperty Name="Tb_Evento" Relationship="Self.fk_cliente_id" FromRole="Tb_Cliente" ToRole="Tb_Evento" />
+          <NavigationProperty Name="Tb_Ubigeo" Relationship="Self.FK_Ubigeo" FromRole="Tb_Cliente" ToRole="Tb_Ubigeo" />
+        </EntityType>
+        <EntityType Name="Tb_Evento">
+          <Key>
+            <PropertyRef Name="evento_id" />
+          </Key>
+          <Property Name="evento_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha_evento" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="hora_inicio" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="hora_finalizacion" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="sala_id" Type="Int32" Nullable="false" />
+          <Property Name="cliente_id" Type="Int32" />
+          <Property Name="tipo_id" Type="Int32" />
+          <Property Name="fecha_eliminacion" Type="DateTime" Precision="3" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="CreadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="ActualizadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <Property Name="nombre_evento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_Cliente" Relationship="Self.fk_cliente_id" FromRole="Tb_Evento" ToRole="Tb_Cliente" />
+          <NavigationProperty Name="Tb_EventoArtista" Relationship="Self.FK__Tb_Evento__event__76969D2E" FromRole="Tb_Evento" ToRole="Tb_EventoArtista" />
+          <NavigationProperty Name="Tb_EventoPersonal" Relationship="Self.FK__Tb_Evento__event__778AC167" FromRole="Tb_Evento" ToRole="Tb_EventoPersonal" />
+          <NavigationProperty Name="Tb_Sala" Relationship="Self.FK__Tb_Evento__sala___71D1E811" FromRole="Tb_Evento" ToRole="Tb_Sala" />
+          <NavigationProperty Name="Tb_ListaInvitados" Relationship="Self.FK__Tb_ListaI__event__797309D9" FromRole="Tb_Evento" ToRole="Tb_ListaInvitados" />
+          <NavigationProperty Name="Tb_TipoEventos" Relationship="Self.FK_Tb_Evento_tipo_id" FromRole="Tb_Evento" ToRole="Tb_TipoEventos" />
+          <NavigationProperty Name="Tb_TipoEventos1" Relationship="Self.fk_tipo_id" FromRole="Tb_Evento" ToRole="Tb_TipoEventos" />
+        </EntityType>
+        <EntityType Name="Tb_EventoPersonal">
+          <Key>
+            <PropertyRef Name="evento_id" />
+            <PropertyRef Name="personal_id" />
+          </Key>
+          <Property Name="evento_id" Type="Int32" Nullable="false" />
+          <Property Name="personal_id" Type="Int32" Nullable="false" />
+          <Property Name="costo_personal" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tb_Evento" Relationship="Self.FK__Tb_Evento__event__778AC167" FromRole="Tb_EventoPersonal" ToRole="Tb_Evento" />
+          <NavigationProperty Name="Tb_Personal" Relationship="Self.FK__Tb_Evento__perso__787EE5A0" FromRole="Tb_EventoPersonal" ToRole="Tb_Personal" />
+        </EntityType>
+        <EntityType Name="Tb_Genero">
+          <Key>
+            <PropertyRef Name="IdGenero" />
+          </Key>
+          <Property Name="IdGenero" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="CreadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="ActualizadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Tb_Artista" Relationship="Self.FK_Genero" FromRole="Tb_Genero" ToRole="Tb_Artista" />
+        </EntityType>
+        <EntityType Name="Tb_Invitados">
+          <Key>
+            <PropertyRef Name="Invitado_id" />
+          </Key>
+          <Property Name="Invitado_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tb_ListaInvitados" Relationship="Self.FK__Tb_ListaI__Invit__7A672E12" FromRole="Tb_Invitados" ToRole="Tb_ListaInvitados" />
+        </EntityType>
+        <EntityType Name="Tb_ListaInvitados">
+          <Key>
+            <PropertyRef Name="id_lista" />
+          </Key>
+          <Property Name="id_lista" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Invitado_id" Type="Int32" Nullable="false" />
+          <Property Name="evento_id" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tb_Evento" Relationship="Self.FK__Tb_ListaI__event__797309D9" FromRole="Tb_ListaInvitados" ToRole="Tb_Evento" />
+          <NavigationProperty Name="Tb_Invitados" Relationship="Self.FK__Tb_ListaI__Invit__7A672E12" FromRole="Tb_ListaInvitados" ToRole="Tb_Invitados" />
+        </EntityType>
+        <EntityType Name="Tb_Personal">
+          <Key>
+            <PropertyRef Name="personal_id" />
+          </Key>
+          <Property Name="personal_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dni" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="costo_hora" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="Foto" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Correo" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo" Type="Int32" />
+          <Property Name="FechaCreacion" Type="DateTime" Precision="3" />
+          <Property Name="CreadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="ActualizadoPor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="estado" Type="Int32" />
+          <NavigationProperty Name="Tb_EventoPersonal" Relationship="Self.FK__Tb_Evento__perso__787EE5A0" FromRole="Tb_Personal" ToRole="Tb_EventoPersonal" />
+        </EntityType>
+        <EntityType Name="Tb_Sala">
+          <Key>
+            <PropertyRef Name="sala_id" />
+          </Key>
+          <Property Name="sala_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre_sala" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="capacidad" Type="Int32" Nullable="false" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="costo_sala" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="disponibilidad" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Tb_Evento" Relationship="Self.FK__Tb_Evento__sala___71D1E811" FromRole="Tb_Sala" ToRole="Tb_Evento" />
+        </EntityType>
+        <EntityType Name="Tb_TipoEventos">
+          <Key>
+            <PropertyRef Name="tipo_id" />
+          </Key>
+          <Property Name="tipo_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="tipo_evento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Tb_Evento" Relationship="Self.FK_Tb_Evento_tipo_id" FromRole="Tb_TipoEventos" ToRole="Tb_Evento" />
+          <NavigationProperty Name="Tb_Evento1" Relationship="Self.fk_tipo_id" FromRole="Tb_TipoEventos" ToRole="Tb_Evento" />
+        </EntityType>
+        <EntityType Name="Tb_Ubigeo">
+          <Key>
+            <PropertyRef Name="Id_Ubigeo" />
+          </Key>
+          <Property Name="Id_Ubigeo" Type="String" MaxLength="6" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="IdDepa" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IdProv" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="IdDist" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Departamento" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Provincia" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Distrito" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Cod_Ven" Type="String" MaxLength="3" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Tb_Cliente" Relationship="Self.FK_Ubigeo" FromRole="Tb_Ubigeo" ToRole="Tb_Cliente" />
+        </EntityType>
+        <EntityType Name="Tb_EventoArtista">
+          <Key>
+            <PropertyRef Name="evento_id" />
+            <PropertyRef Name="artista_id" />
+            <PropertyRef Name="duracion_show" />
+          </Key>
+          <Property Name="evento_id" Type="Int32" Nullable="false" />
+          <Property Name="artista_id" Type="Int32" Nullable="false" />
+          <Property Name="duracion_show" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Tb_Artista" Relationship="Self.FK__Tb_Evento__artis__75A278F5" FromRole="Tb_EventoArtista" ToRole="Tb_Artista" />
+          <NavigationProperty Name="Tb_Evento" Relationship="Self.FK__Tb_Evento__event__76969D2E" FromRole="Tb_EventoArtista" ToRole="Tb_Evento" />
+        </EntityType>
+        <Association Name="FK__Tb_Evento__artis__75A278F5">
+          <End Role="Tb_Artista" Type="Self.Tb_Artista" Multiplicity="1" />
+          <End Role="Tb_EventoArtista" Type="Self.Tb_EventoArtista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Artista">
+              <PropertyRef Name="artista_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoArtista">
+              <PropertyRef Name="artista_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Genero">
+          <End Role="Tb_Genero" Type="Self.Tb_Genero" Multiplicity="0..1" />
+          <End Role="Tb_Artista" Type="Self.Tb_Artista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Genero">
+              <PropertyRef Name="IdGenero" />
+            </Principal>
+            <Dependent Role="Tb_Artista">
+              <PropertyRef Name="IdGenero" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cliente_id">
+          <End Role="Tb_Cliente" Type="Self.Tb_Cliente" Multiplicity="0..1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Cliente">
+              <PropertyRef Name="cliente_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="cliente_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Ubigeo">
+          <End Role="Tb_Ubigeo" Type="Self.Tb_Ubigeo" Multiplicity="0..1" />
+          <End Role="Tb_Cliente" Type="Self.Tb_Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Ubigeo">
+              <PropertyRef Name="Id_Ubigeo" />
+            </Principal>
+            <Dependent Role="Tb_Cliente">
+              <PropertyRef Name="Id_Ubigeo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__event__76969D2E">
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="1" />
+          <End Role="Tb_EventoArtista" Type="Self.Tb_EventoArtista" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Evento">
+              <PropertyRef Name="evento_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoArtista">
+              <PropertyRef Name="evento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__event__778AC167">
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="1" />
+          <End Role="Tb_EventoPersonal" Type="Self.Tb_EventoPersonal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Evento">
+              <PropertyRef Name="evento_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoPersonal">
+              <PropertyRef Name="evento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__sala___71D1E811">
+          <End Role="Tb_Sala" Type="Self.Tb_Sala" Multiplicity="1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Sala">
+              <PropertyRef Name="sala_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="sala_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_ListaI__event__797309D9">
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="1" />
+          <End Role="Tb_ListaInvitados" Type="Self.Tb_ListaInvitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Evento">
+              <PropertyRef Name="evento_id" />
+            </Principal>
+            <Dependent Role="Tb_ListaInvitados">
+              <PropertyRef Name="evento_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Tb_Evento_tipo_id">
+          <End Role="Tb_TipoEventos" Type="Self.Tb_TipoEventos" Multiplicity="0..1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_TipoEventos">
+              <PropertyRef Name="tipo_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_tipo_id">
+          <End Role="Tb_TipoEventos" Type="Self.Tb_TipoEventos" Multiplicity="0..1" />
+          <End Role="Tb_Evento" Type="Self.Tb_Evento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_TipoEventos">
+              <PropertyRef Name="tipo_id" />
+            </Principal>
+            <Dependent Role="Tb_Evento">
+              <PropertyRef Name="tipo_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_Evento__perso__787EE5A0">
+          <End Role="Tb_Personal" Type="Self.Tb_Personal" Multiplicity="1" />
+          <End Role="Tb_EventoPersonal" Type="Self.Tb_EventoPersonal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Personal">
+              <PropertyRef Name="personal_id" />
+            </Principal>
+            <Dependent Role="Tb_EventoPersonal">
+              <PropertyRef Name="personal_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tb_ListaI__Invit__7A672E12">
+          <End Role="Tb_Invitados" Type="Self.Tb_Invitados" Multiplicity="1" />
+          <End Role="Tb_ListaInvitados" Type="Self.Tb_ListaInvitados" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tb_Invitados">
+              <PropertyRef Name="Invitado_id" />
+            </Principal>
+            <Dependent Role="Tb_ListaInvitados">
+              <PropertyRef Name="Invitado_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="GiacoReservaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Tb_Artista" EntityType="Self.Tb_Artista" />
+          <EntitySet Name="Tb_Cliente" EntityType="Self.Tb_Cliente" />
+          <EntitySet Name="Tb_Evento" EntityType="Self.Tb_Evento" />
+          <EntitySet Name="Tb_EventoPersonal" EntityType="Self.Tb_EventoPersonal" />
+          <EntitySet Name="Tb_Genero" EntityType="Self.Tb_Genero" />
+          <EntitySet Name="Tb_Invitados" EntityType="Self.Tb_Invitados" />
+          <EntitySet Name="Tb_ListaInvitados" EntityType="Self.Tb_ListaInvitados" />
+          <EntitySet Name="Tb_Personal" EntityType="Self.Tb_Personal" />
+          <EntitySet Name="Tb_Sala" EntityType="Self.Tb_Sala" />
+          <EntitySet Name="Tb_TipoEventos" EntityType="Self.Tb_TipoEventos" />
+          <EntitySet Name="Tb_Ubigeo" EntityType="Self.Tb_Ubigeo" />
+          <EntitySet Name="Tb_EventoArtista" EntityType="Self.Tb_EventoArtista" />
+          <AssociationSet Name="FK__Tb_Evento__artis__75A278F5" Association="Self.FK__Tb_Evento__artis__75A278F5">
+            <End Role="Tb_Artista" EntitySet="Tb_Artista" />
+            <End Role="Tb_EventoArtista" EntitySet="Tb_EventoArtista" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Genero" Association="Self.FK_Genero">
+            <End Role="Tb_Genero" EntitySet="Tb_Genero" />
+            <End Role="Tb_Artista" EntitySet="Tb_Artista" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cliente_id" Association="Self.fk_cliente_id">
+            <End Role="Tb_Cliente" EntitySet="Tb_Cliente" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Ubigeo" Association="Self.FK_Ubigeo">
+            <End Role="Tb_Ubigeo" EntitySet="Tb_Ubigeo" />
+            <End Role="Tb_Cliente" EntitySet="Tb_Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__event__76969D2E" Association="Self.FK__Tb_Evento__event__76969D2E">
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+            <End Role="Tb_EventoArtista" EntitySet="Tb_EventoArtista" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__event__778AC167" Association="Self.FK__Tb_Evento__event__778AC167">
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+            <End Role="Tb_EventoPersonal" EntitySet="Tb_EventoPersonal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__sala___71D1E811" Association="Self.FK__Tb_Evento__sala___71D1E811">
+            <End Role="Tb_Sala" EntitySet="Tb_Sala" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_ListaI__event__797309D9" Association="Self.FK__Tb_ListaI__event__797309D9">
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+            <End Role="Tb_ListaInvitados" EntitySet="Tb_ListaInvitados" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Tb_Evento_tipo_id" Association="Self.FK_Tb_Evento_tipo_id">
+            <End Role="Tb_TipoEventos" EntitySet="Tb_TipoEventos" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_tipo_id" Association="Self.fk_tipo_id">
+            <End Role="Tb_TipoEventos" EntitySet="Tb_TipoEventos" />
+            <End Role="Tb_Evento" EntitySet="Tb_Evento" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_Evento__perso__787EE5A0" Association="Self.FK__Tb_Evento__perso__787EE5A0">
+            <End Role="Tb_Personal" EntitySet="Tb_Personal" />
+            <End Role="Tb_EventoPersonal" EntitySet="Tb_EventoPersonal" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tb_ListaI__Invit__7A672E12" Association="Self.FK__Tb_ListaI__Invit__7A672E12">
+            <End Role="Tb_Invitados" EntitySet="Tb_Invitados" />
+            <End Role="Tb_ListaInvitados" EntitySet="Tb_ListaInvitados" />
+          </AssociationSet>
+          <FunctionImport Name="ufn_obtenerArtistasPorCosto" IsComposable="true" ReturnType="Collection(GiacoReservaModel.ufn_obtenerArtistasPorCosto_Result)">
+            <Parameter Name="costo" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="unf_BuscarDni" IsComposable="true" ReturnType="Collection(GiacoReservaModel.unf_BuscarDni_Result)">
+            <Parameter Name="dni" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="ObtenerDetallesPersonalEvento" ReturnType="Collection(GiacoReservaModel.ObtenerDetallesPersonalEvento_Result)">
+            <Parameter Name="idEvento" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spu_ModificarArtista">
+            <Parameter Name="artista_id" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_artista" Mode="In" Type="String" />
+            <Parameter Name="genero_musical" Mode="In" Type="String" />
+            <Parameter Name="costo_hora" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizaEvento">
+            <Parameter Name="evento_id" Mode="In" Type="Int32" />
+            <Parameter Name="sala_id" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_evento" Mode="In" Type="String" />
+            <Parameter Name="fecha_evento" Mode="In" Type="DateTime" />
+            <Parameter Name="hora_inicio" Mode="In" Type="Time" />
+            <Parameter Name="hora_finalizacion" Mode="In" Type="Time" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizarCliente" ReturnType="Collection(GiacoReservaModel.usp_ActualizarCliente_Result)">
+            <Parameter Name="cliente_id" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="correo_electronico" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="Dni" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="EsEmpresa" Mode="In" Type="Int32" />
+            <Parameter Name="RazonSocial" Mode="In" Type="String" />
+            <Parameter Name="RUC" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Ubigeo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizarDuracionShow">
+            <Parameter Name="p_evento_id" Mode="In" Type="Int32" />
+            <Parameter Name="p_artista_id" Mode="In" Type="Int32" />
+            <Parameter Name="p_nueva_duracion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizarEvento" ReturnType="Collection(GiacoReservaModel.usp_ActualizarEvento_Result)">
+            <Parameter Name="evento_id" Mode="In" Type="Int32" />
+            <Parameter Name="nombre_evento" Mode="In" Type="String" />
+            <Parameter Name="sala_id" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_id" Mode="In" Type="Int32" />
+            <Parameter Name="fecha_evento" Mode="In" Type="DateTime" />
+            <Parameter Name="hora_inicio" Mode="In" Type="Time" />
+            <Parameter Name="hora_finalizacion" Mode="In" Type="Time" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+            <Parameter Name="actualizado_por" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizarEventoPersonal">
+            <Parameter Name="p_evento_id" Mode="In" Type="Int32" />
+            <Parameter Name="p_personal_id" Mode="In" Type="Int32" />
+            <Parameter Name="p_costo_personal" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizarInformacionCliente">
+            <Parameter Name="cliente_id" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="correo_electronico" Mode="In" Type="String" />
+            <Parameter Name="fecha_nacimiento" Mode="In" Type="DateTime" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="Dni" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizarPersonal" ReturnType="Collection(GiacoReservaModel.usp_ActualizarPersonal_Result)">
+            <Parameter Name="personal_id" Mode="In" Type="Int32" />
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="costo_hora" Mode="In" Type="Decimal" />
+            <Parameter Name="Foto" Mode="In" Type="Binary" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="ActualizadoPor" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ActualizaSala">
+            <Parameter Name="sala_id" Mode="In" Type="Int32" />
+            <Parameter Name="capacidad" Mode="In" Type="Int32" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="costo_sala" Mode="In" Type="Decimal" />
+            <Parameter Name="disponibilidad" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="usp_BuscarPersonalDni" ReturnType="Collection(GiacoReservaModel.usp_BuscarPersonalDni_Result)">
+            <Parameter Name="dni" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ConsultarArtista" ReturnType="Collection(GiacoReservaModel.usp_ConsultarArtista_Result)">
+            <Parameter Name="nombre_artista" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ConsultarCliente" ReturnType="Collection(GiacoReservaModel.usp_ConsultarCliente_Result)">
+            <Parameter Name="cliente_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Usp_ConsultarDatosCliente" ReturnType="Collection(GiacoReservaModel.Usp_ConsultarDatosCliente_Result)">
+            <Parameter Name="cliente_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Usp_ConsultarDatosPersonal" ReturnType="Collection(GiacoReservaModel.Usp_ConsultarDatosPersonal_Result)">
+            <Parameter Name="personal_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ConsultarEvento" ReturnType="Collection(GiacoReservaModel.usp_ConsultarEvento_Result)">
+            <Parameter Name="ecod" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ConsultarEventoYTipo" ReturnType="Collection(GiacoReservaModel.usp_ConsultarEventoYTipo_Result)" />
+          <FunctionImport Name="Usp_ConsultarInvitadosPorEvento" ReturnType="Collection(GiacoReservaModel.Usp_ConsultarInvitadosPorEvento_Result)">
+            <Parameter Name="evento_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ConsultarPersonalPorEventoo" ReturnType="Collection(GiacoReservaModel.usp_ConsultarPersonalPorEventoo_Result)">
+            <Parameter Name="EventoID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_ConsultarUsuario" ReturnType="Collection(GiacoReservaModel.usp_ConsultarUsuario_Result)">
+            <Parameter Name="Login_Usuario" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EliminarArtista">
+            <Parameter Name="nombre_artista" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EliminarCliente">
+            <Parameter Name="cliente_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EliminarEvento" ReturnType="Collection(String)">
+            <Parameter Name="evento_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EliminarEventoPersonal">
+            <Parameter Name="p_evento_id" Mode="In" Type="Int32" />
+            <Parameter Name="p_personal_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_eliminarInvitadoPorID">
+            <Parameter Name="Invitado_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EliminarPersonal">
+            <Parameter Name="personal_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_EliminarSala" ReturnType="Collection(String)">
+            <Parameter Name="sala_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_InsertarCliente" ReturnType="Collection(GiacoReservaModel.usp_InsertarCliente_Result)">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="correo_electronico" Mode="In" Type="String" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="Dni" Mode="In" Type="String" />
+            <Parameter Name="telefono" Mode="In" Type="String" />
+            <Parameter Name="CreadoPor" Mode="In" Type="String" />
+            <Parameter Name="EsEmpresa" Mode="In" Type="Int32" />
+            <Parameter Name="RazonSocial" Mode="In" Type="String" />
+            <Parameter Name="RUC" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+            <Parameter Name="Id_Ubigeo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_InsertarEvento" ReturnType="Collection(String)">
+            <Parameter Name="nombre_evento" Mode="In" Type="String" />
+            <Parameter Name="fecha_evento" Mode="In" Type="DateTime" />
+            <Parameter Name="hora_inicio" Mode="In" Type="Time" />
+            <Parameter Name="hora_finalizacion" Mode="In" Type="Time" />
+            <Parameter Name="sala_id" Mode="In" Type="Int32" />
+            <Parameter Name="tipo_id" Mode="In" Type="Int32" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+            <Parameter Name="creado_por" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_InsertarEventoPersonal">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="tipo_personal" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="costo_hora" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_InsertarInvitado">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_InsertarPersonal">
+            <Parameter Name="nombre" Mode="In" Type="String" />
+            <Parameter Name="apellido" Mode="In" Type="String" />
+            <Parameter Name="dni" Mode="In" Type="String" />
+            <Parameter Name="costo_hora" Mode="In" Type="Decimal" />
+            <Parameter Name="Foto" Mode="In" Type="Binary" />
+            <Parameter Name="Telefono" Mode="In" Type="String" />
+            <Parameter Name="Correo" Mode="In" Type="String" />
+            <Parameter Name="Tipo" Mode="In" Type="Int32" />
+            <Parameter Name="CreadoPor" Mode="In" Type="String" />
+            <Parameter Name="estado" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_InsertarSala" ReturnType="Collection(String)">
+            <Parameter Name="capacidad" Mode="In" Type="Int32" />
+            <Parameter Name="direccion" Mode="In" Type="String" />
+            <Parameter Name="costo_sala" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_listarArtista" ReturnType="Collection(GiacoReservaModel.usp_listarArtista_Result)" />
+          <FunctionImport Name="usp_ListarClientes" ReturnType="Collection(GiacoReservaModel.usp_ListarClientes_Result)" />
+          <FunctionImport Name="usp_ListarEvento" ReturnType="Collection(GiacoReservaModel.usp_ListarEvento_Result)" />
+          <FunctionImport Name="usp_ListarPersonal" ReturnType="Collection(GiacoReservaModel.usp_ListarPersonal_Result)" />
+          <FunctionImport Name="usp_ListarSala" ReturnType="Collection(GiacoReservaModel.usp_ListarSala_Result)" />
+          <FunctionImport Name="usp_ListarTipoDeEvento" ReturnType="Collection(GiacoReservaModel.usp_ListarTipoDeEvento_Result)" />
+          <FunctionImport Name="usp_NumeroEventosPorMes" ReturnType="Collection(GiacoReservaModel.usp_NumeroEventosPorMes_Result)" />
+          <FunctionImport Name="usp_RegistrarArtista">
+            <Parameter Name="nombre_artista" Mode="In" Type="String" />
+            <Parameter Name="genero_musical" Mode="In" Type="String" />
+            <Parameter Name="costo_hora" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="usp_RegistrarEvento">
+            <Parameter Name="tipo_evento" Mode="In" Type="String" />
+            <Parameter Name="fecha_evento" Mode="In" Type="DateTime" />
+            <Parameter Name="hora_inicio" Mode="In" Type="Time" />
+            <Parameter Name="hora_finalizacion" Mode="In" Type="Time" />
+            <Parameter Name="sala_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TiposDeEventosDelAno" ReturnType="Collection(GiacoReservaModel.usp_TiposDeEventosDelAno_Result)" />
+          <FunctionImport Name="usp_Ubigeo_Departamentos" ReturnType="Collection(GiacoReservaModel.usp_Ubigeo_Departamentos_Result)" />
+          <FunctionImport Name="usp_Ubigeo_DistritosProvinciaDepartamento" ReturnType="Collection(GiacoReservaModel.usp_Ubigeo_DistritosProvinciaDepartamento_Result)">
+            <Parameter Name="IdDepartamento" Mode="In" Type="String" />
+            <Parameter Name="IdProvincia" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Ubigeo_ProvinciasDepartamento" ReturnType="Collection(GiacoReservaModel.usp_Ubigeo_ProvinciasDepartamento_Result)">
+            <Parameter Name="IdDepartamento" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="ObtenerDetallesPersonalEvento_Result">
+          <Property Type="String" Name="nombre_completo" Nullable="false" MaxLength="101" />
+          <Property Type="String" Name="costo_personal" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_ActualizarCliente_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="correo_electronico" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Dni" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Tipo_de_cliente" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Estado_del_cliente" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="RUC" Nullable="true" MaxLength="11" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="false" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_ActualizarEvento_Result">
+          <Property Type="String" Name="nombre_evento" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_evento" Nullable="false" />
+          <Property Type="Time" Name="hora_inicio" Nullable="false" />
+          <Property Type="Time" Name="hora_finalizacion" Nullable="false" />
+          <Property Type="Int32" Name="sala_id" Nullable="false" />
+          <Property Type="Int32" Name="tipo_id" Nullable="true" />
+          <Property Type="String" Name="Estado_del_evento" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="usp_ActualizarPersonal_Result">
+          <Property Type="Int32" Name="personal_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="dni" Nullable="false" MaxLength="8" />
+          <Property Type="Decimal" Name="costo_hora" Nullable="false" Precision="19" />
+          <Property Type="Binary" Name="Foto" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Tipo" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="estado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_BuscarPersonalDni_Result">
+          <Property Type="Int32" Name="personal_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="dni" Nullable="false" MaxLength="8" />
+          <Property Type="Decimal" Name="costo_hora" Nullable="false" Precision="19" />
+          <Property Type="Binary" Name="Foto" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Tipo" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="estado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_ConsultarArtista_Result">
+          <Property Type="String" Name="Artista" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Género" Nullable="true" />
+          <Property Type="Decimal" Name="Cobro_por_hora" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="usp_ConsultarCliente_Result">
+          <Property Type="Int32" Name="cliente_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="correo_electronico" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Dni" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="EsEmpresa" Nullable="true" />
+          <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="RUC" Nullable="true" MaxLength="11" />
+          <Property Type="Int32" Name="estado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Usp_ConsultarDatosCliente_Result">
+          <Property Type="Int32" Name="cliente_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="correo_electronico" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Dni" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="20" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="EsEmpresa" Nullable="true" />
+          <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="RUC" Nullable="true" MaxLength="11" />
+          <Property Type="Int32" Name="estado" Nullable="true" />
+          <Property Type="String" Name="Id_Ubigeo" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Provincia" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Distrito" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="Usp_ConsultarDatosPersonal_Result">
+          <Property Type="Int32" Name="personal_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="dni" Nullable="false" MaxLength="8" />
+          <Property Type="Decimal" Name="costo_hora" Nullable="false" Precision="19" />
+          <Property Type="Binary" Name="Foto" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Tipo" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="estado" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_ConsultarEvento_Result">
+          <Property Type="Int32" Name="evento_id" Nullable="false" />
+          <Property Type="String" Name="nombre_evento" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="sala_id" Nullable="false" />
+          <Property Type="String" Name="nombre_sala" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="tipo_id" Nullable="true" />
+          <Property Type="String" Name="tipo_evento" Nullable="false" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_evento" Nullable="false" />
+          <Property Type="Time" Name="hora_inicio" Nullable="false" />
+          <Property Type="Time" Name="hora_finalizacion" Nullable="false" />
+          <Property Type="Int32" Name="estado" Nullable="true" />
+          <Property Type="Int32" Name="cliente_id" Nullable="true" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_ConsultarEventoYTipo_Result">
+          <Property Type="Int32" Name="evento_id" Nullable="false" />
+          <Property Type="DateTime" Name="fecha_evento" Nullable="false" />
+          <Property Type="Time" Name="hora_inicio" Nullable="false" />
+          <Property Type="Time" Name="hora_finalizacion" Nullable="false" />
+          <Property Type="String" Name="tipo_evento" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Usp_ConsultarInvitadosPorEvento_Result">
+          <Property Type="Int32" Name="evento_id" Nullable="false" />
+          <Property Type="Int32" Name="tipo_id" Nullable="true" />
+          <Property Type="DateTime" Name="fecha_evento" Nullable="false" />
+          <Property Type="Int32" Name="Invitado_id" Nullable="false" />
+          <Property Type="String" Name="NombreInvitado" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ApellidoInvitado" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CantidadInvitados" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_ConsultarPersonalPorEventoo_Result">
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="dni" Nullable="false" MaxLength="8" />
+          <Property Type="Decimal" Name="costo_hora" Nullable="false" Precision="19" />
+        </ComplexType>
+        <ComplexType Name="usp_ConsultarUsuario_Result">
+          <Property Type="String" Name="Login_Usuario" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Pass_Usuario" Nullable="true" MaxLength="60" />
+        </ComplexType>
+        <ComplexType Name="usp_InsertarCliente_Result">
+          <Property Type="String" Name="Tipo_de_cliente" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Estado_del_cliente" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="usp_listarArtista_Result">
+          <Property Type="Int32" Name="artista_id" Nullable="false" />
+          <Property Type="String" Name="nombre_artista" Nullable="false" MaxLength="50" />
+          <Property Type="Decimal" Name="costo_hora" Nullable="false" Precision="19" />
+          <Property Type="String" Name="Email" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="Foto" Nullable="true" />
+          <Property Type="Int32" Name="IdGenero" Nullable="true" />
+          <Property Type="Int32" Name="Estado" Nullable="true" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="usp_ListarClientes_Result">
+          <Property Type="Int32" Name="cliente_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="correo_electronico" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="100" />
+          <Property Type="String" Name="Dni" Nullable="false" MaxLength="8" />
+          <Property Type="String" Name="telefono" Nullable="false" MaxLength="20" />
+          <Property Type="String" Name="Id_Ubigeo" Nullable="true" MaxLength="6" />
+          <Property Type="String" Name="Departamento" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Provincia" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="Distrito" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="false" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="TipoCliente" Nullable="false" MaxLength="26" />
+          <Property Type="String" Name="RazonSocial" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="RUC" Nullable="true" MaxLength="11" />
+          <Property Type="String" Name="EstadoCliente" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="usp_ListarEvento_Result">
+          <Property Type="Int32" Name="evento_id" Nullable="false" />
+          <Property Type="String" Name="nombre_evento" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_evento" Nullable="false" />
+          <Property Type="Time" Name="hora_inicio" Nullable="false" />
+          <Property Type="Time" Name="hora_finalizacion" Nullable="false" />
+          <Property Type="Int32" Name="sala_id" Nullable="false" />
+          <Property Type="String" Name="Des_Sala" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="cliente_id" Nullable="true" />
+          <Property Type="String" Name="Des_Cliente" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="tipo_id" Nullable="true" />
+          <Property Type="String" Name="Des_Tipo" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha_eliminacion" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="EstadoEvento" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="usp_ListarPersonal_Result">
+          <Property Type="Int32" Name="personal_id" Nullable="false" />
+          <Property Type="String" Name="nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="apellido" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="dni" Nullable="false" MaxLength="8" />
+          <Property Type="Decimal" Name="costo_hora" Nullable="false" Precision="19" />
+          <Property Type="Binary" Name="Foto" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="255" />
+          <Property Type="DateTime" Name="FechaCreacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="CreadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="FechaActualizacion" Nullable="true" Precision="23" />
+          <Property Type="String" Name="ActualizadoPor" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="estado_descripcion" Nullable="false" MaxLength="11" />
+          <Property Type="String" Name="tipo_descripcion" Nullable="false" MaxLength="11" />
+        </ComplexType>
+        <ComplexType Name="usp_ListarSala_Result">
+          <Property Type="Int32" Name="sala_id" Nullable="false" />
+          <Property Type="String" Name="nombre_sala" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="capacidad" Nullable="false" />
+          <Property Type="String" Name="direccion" Nullable="false" MaxLength="100" />
+          <Property Type="Decimal" Name="costo_sala" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="disponibilidad" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_ListarTipoDeEvento_Result">
+          <Property Type="Int32" Name="tipo_id" Nullable="false" />
+          <Property Type="String" Name="tipo_evento" Nullable="false" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_NumeroEventosPorMes_Result">
+          <Property Type="Int32" Name="Mes" Nullable="true" />
+          <Property Type="Int32" Name="NumeroEventos" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_TiposDeEventosDelAno_Result">
+          <Property Type="String" Name="TipoEvento" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="NumeroEventos" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Ubigeo_Departamentos_Result">
+          <Property Type="String" Name="IDDEPA" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="DEPARTAMENTO" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_Ubigeo_DistritosProvinciaDepartamento_Result">
+          <Property Type="String" Name="IDDIST" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="DISTRITO" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="usp_Ubigeo_ProvinciasDepartamento_Result">
+          <Property Type="String" Name="IDPROV" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="PROVINCIA" Nullable="true" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="GiacoReservaModelStoreContainer" CdmEntityContainer="GiacoReservaEntities">
+          <EntitySetMapping Name="Tb_Artista">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Artista">
+              <MappingFragment StoreEntitySet="Tb_Artista">
+                <ScalarProperty Name="artista_id" ColumnName="artista_id" />
+                <ScalarProperty Name="nombre_artista" ColumnName="nombre_artista" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Cliente">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Cliente">
+              <MappingFragment StoreEntitySet="Tb_Cliente">
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo_electronico" ColumnName="correo_electronico" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="Id_Ubigeo" ColumnName="Id_Ubigeo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="esEmpresa" ColumnName="esEmpresa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Evento">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Evento">
+              <MappingFragment StoreEntitySet="Tb_Evento">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="fecha_evento" ColumnName="fecha_evento" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_finalizacion" ColumnName="hora_finalizacion" />
+                <ScalarProperty Name="sala_id" ColumnName="sala_id" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="fecha_eliminacion" ColumnName="fecha_eliminacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_EventoPersonal">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_EventoPersonal">
+              <MappingFragment StoreEntitySet="Tb_EventoPersonal">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="costo_personal" ColumnName="costo_personal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Genero">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Genero">
+              <MappingFragment StoreEntitySet="Tb_Genero">
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Invitados">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Invitados">
+              <MappingFragment StoreEntitySet="Tb_Invitados">
+                <ScalarProperty Name="Invitado_id" ColumnName="Invitado_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_ListaInvitados">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_ListaInvitados">
+              <MappingFragment StoreEntitySet="Tb_ListaInvitados">
+                <ScalarProperty Name="id_lista" ColumnName="id_lista" />
+                <ScalarProperty Name="Invitado_id" ColumnName="Invitado_id" />
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Personal">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Personal">
+              <MappingFragment StoreEntitySet="Tb_Personal">
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Sala">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Sala">
+              <MappingFragment StoreEntitySet="Tb_Sala">
+                <ScalarProperty Name="sala_id" ColumnName="sala_id" />
+                <ScalarProperty Name="nombre_sala" ColumnName="nombre_sala" />
+                <ScalarProperty Name="capacidad" ColumnName="capacidad" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="costo_sala" ColumnName="costo_sala" />
+                <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_TipoEventos">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_TipoEventos">
+              <MappingFragment StoreEntitySet="Tb_TipoEventos">
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="tipo_evento" ColumnName="tipo_evento" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_Ubigeo">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_Ubigeo">
+              <MappingFragment StoreEntitySet="Tb_Ubigeo">
+                <ScalarProperty Name="Id_Ubigeo" ColumnName="Id_Ubigeo" />
+                <ScalarProperty Name="IdDepa" ColumnName="IdDepa" />
+                <ScalarProperty Name="IdProv" ColumnName="IdProv" />
+                <ScalarProperty Name="IdDist" ColumnName="IdDist" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
+                <ScalarProperty Name="Cod_Ven" ColumnName="Cod_Ven" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tb_EventoArtista">
+            <EntityTypeMapping TypeName="GiacoReservaModel.Tb_EventoArtista">
+              <MappingFragment StoreEntitySet="Tb_EventoArtista">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="artista_id" ColumnName="artista_id" />
+                <ScalarProperty Name="duracion_show" ColumnName="duracion_show" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionName="GiacoReservaModel.Store.ufn_obtenerArtistasPorCosto" FunctionImportName="ufn_obtenerArtistasPorCosto">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.ufn_obtenerArtistasPorCosto_Result">
+                <ScalarProperty Name="artista_id" ColumnName="artista_id" />
+                <ScalarProperty Name="nombre_artista" ColumnName="nombre_artista" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionName="GiacoReservaModel.Store.unf_BuscarDni" FunctionImportName="unf_BuscarDni">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.unf_BuscarDni_Result">
+                <ScalarProperty Name="Invitado_id" ColumnName="Invitado_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="ObtenerDetallesPersonalEvento" FunctionName="GiacoReservaModel.Store.ObtenerDetallesPersonalEvento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.ObtenerDetallesPersonalEvento_Result">
+                <ScalarProperty Name="nombre_completo" ColumnName="nombre_completo" />
+                <ScalarProperty Name="costo_personal" ColumnName="costo_personal" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spu_ModificarArtista" FunctionName="GiacoReservaModel.Store.spu_ModificarArtista" />
+          <FunctionImportMapping FunctionImportName="usp_ActualizaEvento" FunctionName="GiacoReservaModel.Store.usp_ActualizaEvento" />
+          <FunctionImportMapping FunctionImportName="usp_ActualizarCliente" FunctionName="GiacoReservaModel.Store.usp_ActualizarCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ActualizarCliente_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo_electronico" ColumnName="correo_electronico" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="Tipo_de_cliente" ColumnName="Tipo de cliente" />
+                <ScalarProperty Name="Estado_del_cliente" ColumnName="Estado del cliente" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ActualizarDuracionShow" FunctionName="GiacoReservaModel.Store.usp_ActualizarDuracionShow" />
+          <FunctionImportMapping FunctionImportName="usp_ActualizarEvento" FunctionName="GiacoReservaModel.Store.usp_ActualizarEvento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ActualizarEvento_Result">
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="fecha_evento" ColumnName="fecha_evento" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_finalizacion" ColumnName="hora_finalizacion" />
+                <ScalarProperty Name="sala_id" ColumnName="sala_id" />
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="Estado_del_evento" ColumnName="Estado del evento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ActualizarEventoPersonal" FunctionName="GiacoReservaModel.Store.usp_ActualizarEventoPersonal" />
+          <FunctionImportMapping FunctionImportName="usp_ActualizarInformacionCliente" FunctionName="GiacoReservaModel.Store.usp_ActualizarInformacionCliente" />
+          <FunctionImportMapping FunctionImportName="usp_ActualizarPersonal" FunctionName="GiacoReservaModel.Store.usp_ActualizarPersonal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ActualizarPersonal_Result">
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ActualizaSala" FunctionName="GiacoReservaModel.Store.usp_ActualizaSala" />
+          <FunctionImportMapping FunctionImportName="usp_BuscarPersonalDni" FunctionName="GiacoReservaModel.Store.usp_BuscarPersonalDni">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_BuscarPersonalDni_Result">
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ConsultarArtista" FunctionName="GiacoReservaModel.Store.usp_ConsultarArtista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ConsultarArtista_Result">
+                <ScalarProperty Name="Artista" ColumnName="Artista" />
+                <ScalarProperty Name="Género" ColumnName="Género" />
+                <ScalarProperty Name="Cobro_por_hora" ColumnName="Cobro por hora" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ConsultarCliente" FunctionName="GiacoReservaModel.Store.usp_ConsultarCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ConsultarCliente_Result">
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo_electronico" ColumnName="correo_electronico" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="EsEmpresa" ColumnName="EsEmpresa" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Usp_ConsultarDatosCliente" FunctionName="GiacoReservaModel.Store.Usp_ConsultarDatosCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.Usp_ConsultarDatosCliente_Result">
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo_electronico" ColumnName="correo_electronico" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="EsEmpresa" ColumnName="EsEmpresa" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="Id_Ubigeo" ColumnName="Id_Ubigeo" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Usp_ConsultarDatosPersonal" FunctionName="GiacoReservaModel.Store.Usp_ConsultarDatosPersonal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.Usp_ConsultarDatosPersonal_Result">
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ConsultarEvento" FunctionName="GiacoReservaModel.Store.usp_ConsultarEvento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ConsultarEvento_Result">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="sala_id" ColumnName="sala_id" />
+                <ScalarProperty Name="nombre_sala" ColumnName="nombre_sala" />
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="tipo_evento" ColumnName="tipo_evento" />
+                <ScalarProperty Name="fecha_evento" ColumnName="fecha_evento" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_finalizacion" ColumnName="hora_finalizacion" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ConsultarEventoYTipo" FunctionName="GiacoReservaModel.Store.usp_ConsultarEventoYTipo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ConsultarEventoYTipo_Result">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="fecha_evento" ColumnName="fecha_evento" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_finalizacion" ColumnName="hora_finalizacion" />
+                <ScalarProperty Name="tipo_evento" ColumnName="tipo_evento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Usp_ConsultarInvitadosPorEvento" FunctionName="GiacoReservaModel.Store.Usp_ConsultarInvitadosPorEvento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.Usp_ConsultarInvitadosPorEvento_Result">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="fecha_evento" ColumnName="fecha_evento" />
+                <ScalarProperty Name="Invitado_id" ColumnName="Invitado_id" />
+                <ScalarProperty Name="NombreInvitado" ColumnName="NombreInvitado" />
+                <ScalarProperty Name="ApellidoInvitado" ColumnName="ApellidoInvitado" />
+                <ScalarProperty Name="CantidadInvitados" ColumnName="CantidadInvitados" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ConsultarPersonalPorEventoo" FunctionName="GiacoReservaModel.Store.usp_ConsultarPersonalPorEventoo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ConsultarPersonalPorEventoo_Result">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ConsultarUsuario" FunctionName="GiacoReservaModel.Store.usp_ConsultarUsuario">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ConsultarUsuario_Result">
+                <ScalarProperty Name="Login_Usuario" ColumnName="Login_Usuario" />
+                <ScalarProperty Name="Pass_Usuario" ColumnName="Pass_Usuario" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_EliminarArtista" FunctionName="GiacoReservaModel.Store.usp_EliminarArtista" />
+          <FunctionImportMapping FunctionImportName="usp_EliminarCliente" FunctionName="GiacoReservaModel.Store.usp_EliminarCliente" />
+          <FunctionImportMapping FunctionImportName="usp_EliminarEvento" FunctionName="GiacoReservaModel.Store.usp_EliminarEvento" />
+          <FunctionImportMapping FunctionImportName="usp_EliminarEventoPersonal" FunctionName="GiacoReservaModel.Store.usp_EliminarEventoPersonal" />
+          <FunctionImportMapping FunctionImportName="usp_eliminarInvitadoPorID" FunctionName="GiacoReservaModel.Store.usp_eliminarInvitadoPorID" />
+          <FunctionImportMapping FunctionImportName="usp_EliminarPersonal" FunctionName="GiacoReservaModel.Store.usp_EliminarPersonal" />
+          <FunctionImportMapping FunctionImportName="usp_EliminarSala" FunctionName="GiacoReservaModel.Store.usp_EliminarSala" />
+          <FunctionImportMapping FunctionImportName="usp_InsertarCliente" FunctionName="GiacoReservaModel.Store.usp_InsertarCliente">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_InsertarCliente_Result">
+                <ScalarProperty Name="Tipo_de_cliente" ColumnName="Tipo de cliente" />
+                <ScalarProperty Name="Estado_del_cliente" ColumnName="Estado del cliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_InsertarEvento" FunctionName="GiacoReservaModel.Store.usp_InsertarEvento" />
+          <FunctionImportMapping FunctionImportName="usp_InsertarEventoPersonal" FunctionName="GiacoReservaModel.Store.usp_InsertarEventoPersonal" />
+          <FunctionImportMapping FunctionImportName="usp_InsertarInvitado" FunctionName="GiacoReservaModel.Store.usp_InsertarInvitado" />
+          <FunctionImportMapping FunctionImportName="usp_InsertarPersonal" FunctionName="GiacoReservaModel.Store.usp_InsertarPersonal" />
+          <FunctionImportMapping FunctionImportName="usp_InsertarSala" FunctionName="GiacoReservaModel.Store.usp_InsertarSala" />
+          <FunctionImportMapping FunctionImportName="usp_listarArtista" FunctionName="GiacoReservaModel.Store.usp_listarArtista">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_listarArtista_Result">
+                <ScalarProperty Name="artista_id" ColumnName="artista_id" />
+                <ScalarProperty Name="nombre_artista" ColumnName="nombre_artista" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="IdGenero" ColumnName="IdGenero" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ListarClientes" FunctionName="GiacoReservaModel.Store.usp_ListarClientes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ListarClientes_Result">
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo_electronico" ColumnName="correo_electronico" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="Dni" ColumnName="Dni" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="Id_Ubigeo" ColumnName="Id_Ubigeo" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Provincia" ColumnName="Provincia" />
+                <ScalarProperty Name="Distrito" ColumnName="Distrito" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="TipoCliente" ColumnName="TipoCliente" />
+                <ScalarProperty Name="RazonSocial" ColumnName="RazonSocial" />
+                <ScalarProperty Name="RUC" ColumnName="RUC" />
+                <ScalarProperty Name="EstadoCliente" ColumnName="EstadoCliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ListarEvento" FunctionName="GiacoReservaModel.Store.usp_ListarEvento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ListarEvento_Result">
+                <ScalarProperty Name="evento_id" ColumnName="evento_id" />
+                <ScalarProperty Name="nombre_evento" ColumnName="nombre_evento" />
+                <ScalarProperty Name="fecha_evento" ColumnName="fecha_evento" />
+                <ScalarProperty Name="hora_inicio" ColumnName="hora_inicio" />
+                <ScalarProperty Name="hora_finalizacion" ColumnName="hora_finalizacion" />
+                <ScalarProperty Name="sala_id" ColumnName="sala_id" />
+                <ScalarProperty Name="Des_Sala" ColumnName="Des_Sala" />
+                <ScalarProperty Name="cliente_id" ColumnName="cliente_id" />
+                <ScalarProperty Name="Des_Cliente" ColumnName="Des_Cliente" />
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="Des_Tipo" ColumnName="Des_Tipo" />
+                <ScalarProperty Name="fecha_eliminacion" ColumnName="fecha_eliminacion" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="EstadoEvento" ColumnName="EstadoEvento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ListarPersonal" FunctionName="GiacoReservaModel.Store.usp_ListarPersonal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ListarPersonal_Result">
+                <ScalarProperty Name="personal_id" ColumnName="personal_id" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="dni" ColumnName="dni" />
+                <ScalarProperty Name="costo_hora" ColumnName="costo_hora" />
+                <ScalarProperty Name="Foto" ColumnName="Foto" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="FechaCreacion" ColumnName="FechaCreacion" />
+                <ScalarProperty Name="CreadoPor" ColumnName="CreadoPor" />
+                <ScalarProperty Name="FechaActualizacion" ColumnName="FechaActualizacion" />
+                <ScalarProperty Name="ActualizadoPor" ColumnName="ActualizadoPor" />
+                <ScalarProperty Name="estado_descripcion" ColumnName="estado_descripcion" />
+                <ScalarProperty Name="tipo_descripcion" ColumnName="tipo_descripcion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ListarSala" FunctionName="GiacoReservaModel.Store.usp_ListarSala">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ListarSala_Result">
+                <ScalarProperty Name="sala_id" ColumnName="sala_id" />
+                <ScalarProperty Name="nombre_sala" ColumnName="nombre_sala" />
+                <ScalarProperty Name="capacidad" ColumnName="capacidad" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="costo_sala" ColumnName="costo_sala" />
+                <ScalarProperty Name="disponibilidad" ColumnName="disponibilidad" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_ListarTipoDeEvento" FunctionName="GiacoReservaModel.Store.usp_ListarTipoDeEvento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_ListarTipoDeEvento_Result">
+                <ScalarProperty Name="tipo_id" ColumnName="tipo_id" />
+                <ScalarProperty Name="tipo_evento" ColumnName="tipo_evento" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_NumeroEventosPorMes" FunctionName="GiacoReservaModel.Store.usp_NumeroEventosPorMes">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_NumeroEventosPorMes_Result">
+                <ScalarProperty Name="Mes" ColumnName="Mes" />
+                <ScalarProperty Name="NumeroEventos" ColumnName="NumeroEventos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_RegistrarArtista" FunctionName="GiacoReservaModel.Store.usp_RegistrarArtista" />
+          <FunctionImportMapping FunctionImportName="usp_RegistrarEvento" FunctionName="GiacoReservaModel.Store.usp_RegistrarEvento" />
+          <FunctionImportMapping FunctionImportName="usp_TiposDeEventosDelAno" FunctionName="GiacoReservaModel.Store.usp_TiposDeEventosDelAno">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_TiposDeEventosDelAno_Result">
+                <ScalarProperty Name="TipoEvento" ColumnName="TipoEvento" />
+                <ScalarProperty Name="NumeroEventos" ColumnName="NumeroEventos" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Ubigeo_Departamentos" FunctionName="GiacoReservaModel.Store.usp_Ubigeo_Departamentos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_Ubigeo_Departamentos_Result">
+                <ScalarProperty Name="IDDEPA" ColumnName="IDDEPA" />
+                <ScalarProperty Name="DEPARTAMENTO" ColumnName="DEPARTAMENTO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Ubigeo_DistritosProvinciaDepartamento" FunctionName="GiacoReservaModel.Store.usp_Ubigeo_DistritosProvinciaDepartamento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_Ubigeo_DistritosProvinciaDepartamento_Result">
+                <ScalarProperty Name="IDDIST" ColumnName="IDDIST" />
+                <ScalarProperty Name="DISTRITO" ColumnName="DISTRITO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Ubigeo_ProvinciasDepartamento" FunctionName="GiacoReservaModel.Store.usp_Ubigeo_ProvinciasDepartamento">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="GiacoReservaModel.usp_Ubigeo_ProvinciasDepartamento_Result">
+                <ScalarProperty Name="IDPROV" ColumnName="IDPROV" />
+                <ScalarProperty Name="PROVINCIA" ColumnName="PROVINCIA" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
