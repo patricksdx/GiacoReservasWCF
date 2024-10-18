@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Linq;
 
+// PATRICK Y GIACOMO
 namespace WCFGiacoReservas
 {
     public class ServicioEvento : IServicioEvento
